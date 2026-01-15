@@ -39,25 +39,52 @@
         box-sizing: border-box;
       }
 
-      /* ヒーローセクション */
+      /* ヒーローセクション（スライドショー対応） */
       .hero-section {
+        position: relative;
         height: 50vh;
         min-height: 400px;
-        background: linear-gradient(rgba(45, 90, 39, 0.4), rgba(45, 90, 39, 0.4)), 
-                    url('./images/top.jpg');
-        background-size: cover;
-        background-position: center;
+        overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
       }
 
+      .slide-container {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      .slide-item {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 1000ms ease-in-out;
+      }
+
+      .slide-item.active {
+        opacity: 1;
+      }
+
+      /* 画像の暗幕効果（テキスト視認性向上） */
+      .slide-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(rgba(45, 90, 39, 0.4), rgba(45, 90, 39, 0.4));
+        z-index: 5;
+      }
+
       .hero-content {
+        position: relative;
+        z-index: 10;
         text-align: center;
         color: white;
       }
 
-      /* セクション余白（間延び防止のため縮小版） */
+      /* セクション余白 */
       .section-space {
         padding: 32px 0;
       }
@@ -191,8 +218,12 @@
       <a href="#contact" class="mobile-link">お問い合わせ</a>
     </div>
 
-    <!-- ヒーロー -->
+    <!-- ヒーロー（スライドショー） -->
     <section class="hero-section">
+      <div id="slide-container" class="slide-container">
+        <!-- JSで画像が挿入されます -->
+      </div>
+      <div class="slide-overlay"></div>
       <div class="hero-content single-column">
         <p class="text-xs md:text-sm font-bold mb-3 tracking-[0.4em] text-[#f1c40f]">FOR THE NEXT GENERATION</p>
         <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-relaxed">
@@ -374,6 +405,44 @@
 
     <script>
       /**
+       * ヒーローエリア スライドショー制御
+       */
+      const slideImages = [
+        './images/slide/slide0.jpg',     // 1枚目
+        './images/slide/slide1.jpg', // 2枚目
+        './images/slide/slide2.jpg', // 3枚目
+        './images/slide/slide3.jpg',
+        './images/slide/slide4.jpg',
+        './images/slide/slide5.jpg',
+        './images/slide/slide6.jpg',
+        './images/slide/slide7.jpg',
+        './images/slide/slide8.png'
+      ];
+
+      function initSlideshow() {
+        const container = document.getElementById('slide-container');
+        if (!container || slideImages.length === 0) return;
+
+        // スライド要素の作成
+        slideImages.forEach((src, index) => {
+          const div = document.createElement('div');
+          div.className = `slide-item ${index === 0 ? 'active' : ''}`;
+          div.style.backgroundImage = `url('${src}')`;
+          container.appendChild(div);
+        });
+
+        // 5秒ごとに切り替え
+        let currentIndex = 0;
+        const slides = container.getElementsByClassName('slide-item');
+        
+        setInterval(() => {
+          slides[currentIndex].classList.remove('active');
+          currentIndex = (currentIndex + 1) % slides.length;
+          slides[currentIndex].classList.add('active');
+        }, 5000);
+      }
+
+      /**
        * モバイルメニュー制御
        */
       const menuBtn = document.getElementById('menu-btn');
@@ -391,6 +460,7 @@
 
       /**
        * note RSS取得（画像取得強化版）
+       * ロジックは変更していません
        */
       const RSS_URL = 'https://note.com/f_fairy/rss';
       const PROXY_URL = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
@@ -459,7 +529,10 @@
         };
       }
 
-      document.addEventListener('DOMContentLoaded', fetchNoteNews);
+      document.addEventListener('DOMContentLoaded', () => {
+        initSlideshow();
+        fetchNoteNews();
+      });
     </script>
   <script type="module" src="/index.tsx"></script>
 </body>
