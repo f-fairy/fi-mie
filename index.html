@@ -408,9 +408,9 @@
        * ヒーローエリア スライドショー制御
        */
       const slideImages = [
-        './images/slide/slide0.jpg',     // 1枚目
-        './images/slide/slide1.jpg', // 2枚目
-        './images/slide/slide2.jpg', // 3枚目
+        './images/slide/slide0.jpg',
+        './images/slide/slide1.jpg',
+        './images/slide/slide2.jpg',
         './images/slide/slide3.jpg',
         './images/slide/slide4.jpg',
         './images/slide/slide5.jpg',
@@ -423,7 +423,6 @@
         const container = document.getElementById('slide-container');
         if (!container || slideImages.length === 0) return;
 
-        // スライド要素の作成
         slideImages.forEach((src, index) => {
           const div = document.createElement('div');
           div.className = `slide-item ${index === 0 ? 'active' : ''}`;
@@ -431,11 +430,11 @@
           container.appendChild(div);
         });
 
-        // 5秒ごとに切り替え
         let currentIndex = 0;
         const slides = container.getElementsByClassName('slide-item');
         
         setInterval(() => {
+          if (slides.length === 0) return;
           slides[currentIndex].classList.remove('active');
           currentIndex = (currentIndex + 1) % slides.length;
           slides[currentIndex].classList.add('active');
@@ -459,65 +458,116 @@
       });
 
       /**
-       * note RSS取得（画像取得強化版）
-       * ロジックは変更していません
+       * note RSS取得・表示ロジック（強化版）
        */
       const RSS_URL = 'https://note.com/f_fairy/rss';
-      const PROXY_URL = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
       const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=400';
+      
+      // グローバルに全記事を保持
+      let allArticles = [];
 
-      async function fetchNoteNews() {
-          const container = document.getElementById('news-container');
-          if (!container) return;
+      /**
+       * タイムアウト付きフェッチ（リトライ機能付き）
+       */
+      async function fetchWithRetry(url, options = {}, retries = 3, interval = 1500) {
+        for (let i = 0; i < retries; i++) {
+          const controller = new AbortController();
+          const id = setTimeout(() => controller.abort(), 10000); // 10秒タイムアウト
 
           try {
-              const res = await fetch(PROXY_URL);
-              const data = await res.json();
-              const parser = new DOMParser();
-              const xmlDoc = parser.parseFromString(data.contents, "text/xml");
-              const items = xmlDoc.querySelectorAll("item");
-
-              let html = '<div class="divide-y divide-gray-100">';
-              
-              for (let i = 0; i < Math.min(items.length, 3); i++) {
-                  const item = items[i];
-                  const title = item.querySelector("title").textContent;
-                  const link = item.querySelector("link").textContent;
-                  const pubDate = item.querySelector("pubDate").textContent;
-                  const date = new Date(pubDate).toLocaleDateString('ja-JP').replace(/\//g, '.');
-                  
-                  let thumb = "";
-                  const mediaThumb = item.getElementsByTagName("media:thumbnail")[0];
-                  if (mediaThumb) {
-                      thumb = mediaThumb.textContent;
-                  } else {
-                      const content = item.querySelector("description")?.textContent || "";
-                      const imgMatch = content.match(/<img[^>]+src="([^">?]+)"/);
-                      thumb = imgMatch ? imgMatch[1] : FALLBACK_IMAGE;
-                  }
-
-                  html += `
-                      <a href="${link}" target="_blank" rel="noopener" class="group p-6 md:p-8 flex gap-6 hover:bg-[#fcfdfc] transition-all">
-                          <div class="w-16 h-16 md:w-24 md:h-24 flex-shrink-0 overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
-                              <img src="${thumb}" 
-                                   alt="" 
-                                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                   onerror="this.src='${FALLBACK_IMAGE}'">
-                          </div>
-                          <div class="flex-1 min-w-0">
-                              <div class="flex items-center gap-3 mb-2">
-                                  <span class="text-xs font-bold text-gray-400">${date}</span>
-                                  <span class="text-[10px] px-2 py-0.5 border border-[#2d5a27]/20 text-[#2d5a27] rounded font-bold">note</span>
-                              </div>
-                              <h5 class="text-base font-bold text-gray-800 group-hover:text-[#2d5a27] transition-colors line-clamp-2">${title}</h5>
-                          </div>
-                      </a>`;
-              }
-              container.innerHTML = html + '</div>';
-          } catch (e) {
-              console.error("RSS取得エラー:", e);
-              container.innerHTML = `<p class="p-8 text-center text-gray-400 text-sm">記事を読み込めませんでした。</p>`;
+            const response = await fetch(url, { ...options, signal: controller.signal });
+            clearTimeout(id);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return await response.json();
+          } catch (err) {
+            clearTimeout(id);
+            console.warn(`取得失敗 (試行 ${i + 1}/${retries}):`, err.message);
+            if (i === retries - 1) throw err;
+            await new Promise(resolve => setTimeout(resolve, interval));
           }
+        }
+      }
+
+      /**
+       * RSSの取得とパース
+       */
+      async function fetchNoteNews() {
+        const container = document.getElementById('news-container');
+        if (!container) return;
+
+        // キャッシュバスターを付与
+        const cacheBuster = `?t=${Date.now()}`;
+        const targetUrl = RSS_URL + cacheBuster;
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+
+        try {
+          const data = await fetchWithRetry(proxyUrl);
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+          const items = xmlDoc.querySelectorAll("item");
+
+          // データを抽出して全件保持
+          allArticles = Array.from(items).map(item => {
+            const title = item.querySelector("title")?.textContent || "";
+            const link = item.querySelector("link")?.textContent || "";
+            const pubDate = item.querySelector("pubDate")?.textContent || "";
+            const date = new Date(pubDate).toLocaleDateString('ja-JP').replace(/\//g, '.');
+            
+            // 画像抽出ロジック（media:thumbnail優先、なければdescriptionから）
+            let thumb = "";
+            const mediaThumb = item.getElementsByTagName("media:thumbnail")[0];
+            if (mediaThumb) {
+              thumb = mediaThumb.textContent;
+            } else {
+              const content = item.querySelector("description")?.textContent || "";
+              const imgMatch = content.match(/<img[^>]+src="([^">?]+)"/);
+              thumb = imgMatch ? imgMatch[1] : FALLBACK_IMAGE;
+            }
+
+            return { title, link, date, thumb };
+          });
+
+          // 表示処理（現在は最新3件のみ）
+          renderArticles(allArticles.slice(0, 3));
+
+        } catch (e) {
+          console.error("RSS最終取得エラー:", e);
+          container.innerHTML = `<p class="p-8 text-center text-gray-400 text-sm">記事を読み込めませんでした。時間をおいて再度お試しください。</p>`;
+        }
+      }
+
+      /**
+       * 記事リストをDOMに描画
+       */
+      function renderArticles(articles) {
+        const container = document.getElementById('news-container');
+        if (!container) return;
+
+        if (articles.length === 0) {
+          container.innerHTML = `<p class="p-8 text-center text-gray-400 text-sm">現在、新着記事はありません。</p>`;
+          return;
+        }
+
+        let html = '<div class="divide-y divide-gray-100">';
+        articles.forEach(article => {
+          html += `
+            <a href="${article.link}" target="_blank" rel="noopener" class="group p-6 md:p-8 flex gap-6 hover:bg-[#fcfdfc] transition-all">
+                <div class="w-16 h-16 md:w-24 md:h-24 flex-shrink-0 overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
+                    <img src="${article.thumb}" 
+                         alt="" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         onerror="this.src='${FALLBACK_IMAGE}'">
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-xs font-bold text-gray-400">${article.date}</span>
+                        <span class="text-[10px] px-2 py-0.5 border border-[#2d5a27]/20 text-[#2d5a27] rounded font-bold">note</span>
+                    </div>
+                    <h5 class="text-base font-bold text-gray-800 group-hover:text-[#2d5a27] transition-colors line-clamp-2">${article.title}</h5>
+                </div>
+            </a>`;
+        });
+        container.innerHTML = html + '</div>';
       }
 
       const contactForm = document.getElementById('contact-form');
