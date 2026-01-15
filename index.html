@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>○○インストラクター会 | 自然と知恵をつなぐ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --forest-deep: #2d5a27;
+        --sun-gold: #f1c40f;
+        --bg-modern: #f9f9f9;
+        --text-main: #2c3e50;
+      }
+      
+      body {
+        font-family: 'Noto Sans JP', sans-serif;
+        background-color: var(--bg-modern);
+        color: var(--text-main);
+        font-size: 16px;
+        line-height: 1.8;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+
+      h1, h2, h3, h4 {
+        font-family: 'Shippori Mincho', serif;
+        letter-spacing: 0.05em;
+      }
+
+      .single-column {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 24px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* ヒーローセクション */
+      .hero-section {
+        height: 50vh;
+        min-height: 400px;
+        background: linear-gradient(rgba(45, 90, 39, 0.4), rgba(45, 90, 39, 0.4)), 
+                    url('./images/top.jpg');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-content {
+        text-align: center;
+        color: white;
+      }
+
+      /* セクション余白（間延び防止のため縮小版） */
+      .section-space {
+        padding: 32px 0;
+      }
+      @media (min-width: 768px) {
+        .section-space {
+          padding: 48px 0;
+        }
+      }
+
+      .modern-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.02);
+        overflow: hidden;
+      }
+
+      .zebra-list div:nth-child(even) {
+        background-color: #fafbfb;
+      }
+
+      .calendar-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .calendar-wrapper {
+        position: relative;
+        padding-bottom: 120%;
+        height: 0;
+        min-width: 320px;
+      }
+      @media (min-width: 768px) {
+        .calendar-wrapper {
+          padding-bottom: 70%;
+        }
+      }
+      .calendar-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+      .dropdown-menu {
+        display: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+
+      #mobile-menu {
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+      }
+      #mobile-menu.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      
+      main, .container {
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 0 20px;
+      }
+    </style>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body id="top">
+    <!-- ヘッダー -->
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-100 py-3">
+      <div class="single-column flex justify-between items-center gap-2 md:gap-4 flex-nowrap">
+        <a href="#top" class="flex items-center gap-1.5 md:gap-2 group flex-shrink-0">
+          <img src="./images/logo_mie.png" alt="Logo" class="h-8 md:h-10 w-auto object-contain flex-shrink-0">
+          <span class="font-bold text-sm md:text-base tracking-tight text-[#2d5a27] whitespace-nowrap">○○インストラクター会</span>
+        </a>
+        
+        <!-- デスクトップナビ -->
+        <nav class="hidden md:block flex-shrink-0">
+          <ul class="flex gap-4 lg:gap-6 text-[13px] font-bold text-gray-500 items-center whitespace-nowrap">
+            <li><a href="#top" class="hover:text-[#2d5a27] transition">HOME</a></li>
+            <li><a href="#news" class="hover:text-[#2d5a27] transition">新着情報</a></li>
+            <li><a href="#calendar" class="hover:text-[#2d5a27] transition">スケジュール</a></li>
+            <li class="relative dropdown">
+              <button class="flex items-center gap-1 hover:text-[#2d5a27] transition focus:outline-none whitespace-nowrap">
+                活動報告
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+              <ul class="dropdown-menu absolute left-0 mt-2 w-32 bg-white border border-gray-100 rounded-lg overflow-hidden py-1 shadow-lg">
+                <li><a href="#activities" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#2d5a27] transition">一般</a></li>
+                <li><a href="#activities" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#2d5a27] transition">公園</a></li>
+                <li><a href="#activities" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#2d5a27] transition">講座</a></li>
+              </ul>
+            </li>
+            <li><a href="#about" class="hover:text-[#2d5a27] transition">ABOUT</a></li>
+            <li><a href="#contact" class="hover:text-[#2d5a27] transition">お問い合わせ</a></li>
+          </ul>
+        </nav>
+
+        <button id="menu-btn" class="md:hidden p-2 text-[#2d5a27] flex-shrink-0" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- モバイルメニュー -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] flex flex-col items-center justify-center space-y-6 text-xl font-medium text-[#2d5a27]">
+      <button id="close-menu" class="absolute top-6 right-6 p-2 text-gray-400">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+      <a href="#top" class="mobile-link">HOME</a>
+      <a href="#news" class="mobile-link">新着情報</a>
+      <a href="#calendar" class="mobile-link">スケジュール</a>
+      <div class="w-full flex flex-col items-center space-y-3 bg-gray-50/50 py-4">
+        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">活動報告</span>
+        <a href="#activities" class="mobile-link text-lg">一般</a>
+        <a href="#activities" class="mobile-link text-lg">公園</a>
+        <a href="#activities" class="mobile-link text-lg">講座</a>
+      </div>
+      <a href="#about" class="mobile-link">ABOUT</a>
+      <a href="#contact" class="mobile-link">お問い合わせ</a>
+    </div>
+
+    <!-- ヒーロー -->
+    <section class="hero-section">
+      <div class="hero-content single-column">
+        <p class="text-xs md:text-sm font-bold mb-3 tracking-[0.4em] text-[#f1c40f]">FOR THE NEXT GENERATION</p>
+        <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-relaxed">
+          光溢れる明るい森から、<br>新しい知恵を。
+        </h2>
+      </div>
+    </section>
+
+    <main class="single-column">
+      <!-- 新着情報 -->
+      <section id="news" class="section-space">
+        <div class="text-center mb-4">
+          <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">新着情報</h3>
+          <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
+        </div>
+        <div id="news-container" class="modern-card">
+          <div class="p-8 space-y-4 animate-pulse">
+            <div class="h-3 bg-gray-100 rounded w-1/4"></div>
+            <div class="h-5 bg-gray-100 rounded w-full"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- スケジュール -->
+      <section id="calendar" class="section-space">
+        <div class="text-center mb-4">
+          <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">スケジュール</h3>
+          <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
+        </div>
+        <div class="modern-card calendar-container">
+          <div class="calendar-wrapper">
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTokyo&showPrint=0&src=NTBjMzdmMmVmOGZkNzkzZjhmNGYyZTM5ZjZkODhlODFlZDgyYTAwYjg5YTU2MTJjMjdhMDM3N2U0YmNhM2FmMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=amEuamFwYW5lc2UjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23a79b8e&color=%230b8043" style="border: 0" frameborder="0" scrolling="no"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- 活動報告 -->
+      <section id="activities" class="section-space">
+        <div class="text-center mb-4">
+          <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">活動報告</h3>
+          <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="modern-card p-6 flex flex-col items-center text-center group hover:bg-[#2d5a27] transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-4 group-hover:bg-white/20 transition-colors">
+              <svg class="w-6 h-6 text-[#2d5a27] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
+            <h4 class="font-bold mb-2 group-hover:text-white">一般</h4>
+            <p class="text-xs text-gray-500 group-hover:text-white/80">地域住民との交流や定期的な森林保全活動の報告です。</p>
+          </div>
+          <div class="modern-card p-6 flex flex-col items-center text-center group hover:bg-[#2d5a27] transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-4 group-hover:bg-white/20 transition-colors">
+              <svg class="w-6 h-6 text-[#2d5a27] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+            </div>
+            <h4 class="font-bold mb-2 group-hover:text-white">公園</h4>
+            <p class="text-xs text-gray-500 group-hover:text-white/80">公園での維持管理やイベント報告です。</p>
+          </div>
+          <div class="modern-card p-6 flex flex-col items-center text-center group hover:bg-[#2d5a27] transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-4 group-hover:bg-white/20 transition-colors">
+              <svg class="w-6 h-6 text-[#2d5a27] group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            </div>
+            <h4 class="font-bold mb-2 group-hover:text-white">講座</h4>
+            <p class="text-xs text-gray-500 group-hover:text-white/80">環境講座の実施報告です。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="section-space">
+        <div class="text-center mb-4">
+          <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">ABOUT</h3>
+          <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="modern-card p-8 md:p-10">
+            <h4 class="text-xl font-bold mb-4 text-[#2d5a27] flex items-center gap-3">
+              <span class="w-1 h-6 bg-[#2d5a27] rounded-full"></span>
+              私たちのミッション
+            </h4>
+            <p class="text-gray-600 leading-loose mb-6 text-sm md:text-base">
+              私たちは地域の「森林インストラクター」として、森林の魅力を次世代へつなぐ活動をしています。豊かな自然の恵みを知り、楽しみ、そして守るための架け橋となります。
+            </p>
+            <div class="bg-[#fcfdfc] p-5 rounded-xl border border-gray-50">
+              <ul class="space-y-2 text-gray-500 text-sm md:text-base font-medium">
+                <li class="flex items-center gap-4"><svg class="w-4 h-4 text-[#f1c40f]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>学校教育の環境学習支援</li>
+                <li class="flex items-center gap-4"><svg class="w-4 h-4 text-[#f1c40f]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>季節の森林散策会の企画・運営</li>
+                <li class="flex items-center gap-4"><svg class="w-4 h-4 text-[#f1c40f]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>里山・人工林の保全・整備活動</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="modern-card">
+            <div class="bg-gray-50/50 px-8 py-3 border-b border-gray-100">
+              <h4 class="text-xs font-bold text-[#2d5a27] text-center tracking-widest uppercase">Officers</h4>
+            </div>
+            <div class="zebra-list">
+              <div class="px-10 py-4 flex justify-between items-center text-sm">
+                <span class="text-gray-400 font-medium">会長</span>
+                <span class="font-bold text-gray-700">森林 太郎</span>
+              </div>
+              <div class="px-10 py-4 flex justify-between items-center text-sm">
+                <span class="text-gray-400 font-medium">副会長</span>
+                <span class="font-bold text-gray-700">木村 花子</span>
+              </div>
+              <div class="px-10 py-4 flex justify-between items-center text-sm">
+                <span class="text-gray-400 font-medium">事務局</span>
+                <span class="font-bold text-gray-700">葉山 茂</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- お問い合わせ -->
+      <section id="contact" class="section-space">
+        <div class="text-center mb-4">
+          <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">お問い合わせ</h3>
+          <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
+        </div>
+
+        <form id="contact-form" class="modern-card p-8 md:p-10 space-y-6">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Name</label>
+              <input type="text" class="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl text-sm outline-none focus:border-[#2d5a27]/30 focus:bg-white transition" placeholder="お名前" required>
+            </div>
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Email</label>
+              <input type="email" class="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl text-sm outline-none focus:border-[#2d5a27]/30 focus:bg-white transition" placeholder="メールアドレス" required>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Message</label>
+            <textarea class="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl text-sm outline-none focus:border-[#2d5a27]/30 focus:bg-white transition h-32" placeholder="内容をご入力ください" required></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="w-full md:w-auto bg-[#2d5a27] text-white px-16 py-3 rounded-full font-bold text-xs tracking-[0.3em] hover:bg-[#3d7a35] transition-all shadow-lg hover:shadow-xl">
+              送信する
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-white border-t border-gray-100 pt-8 pb-6 mt-6">
+      <div class="single-column">
+        <div class="grid md:grid-cols-2 gap-8 mb-8 text-center md:text-left items-start">
+          <div>
+            <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
+              <img src="./images/logo_mie.png" alt="Logo" class="h-6 w-auto object-contain">
+              <h4 class="text-sm font-bold tracking-tight text-[#2d5a27]">○○インストラクター会</h4>
+            </div>
+            <p class="text-gray-400 text-xs leading-relaxed max-w-sm">森林の魅力を次世代へ。持続可能な未来を育む活動を行っています。</p>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <h5 class="text-[10px] font-bold text-gray-300 uppercase tracking-[0.3em] mb-2">Official Link</h5>
+              <a href="https://www.forest-instructor.or.jp/" target="_blank" rel="noopener" class="text-xs font-bold text-[#2d5a27] hover:underline transition-all">日本森林インストラクター協会</a>
+            </div>
+            <div class="flex justify-center md:justify-start gap-6 items-center">
+              <a href="#" target="_blank" rel="noopener" class="text-gray-400 hover:text-[#2d5a27] transition-colors" aria-label="Facebook">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.325-.597 1.325-1.326V1.326C24 .597 23.403 0 22.675 0z"/></svg>
+              </a>
+              <a href="#" target="_blank" rel="noopener" class="text-gray-400 hover:text-[#2d5a27] transition-colors" aria-label="X (Twitter)">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-50 pt-6 text-center">
+          <p class="text-gray-300 text-[9px] tracking-[0.2em] font-medium uppercase">&copy; 2024 ○○インストラクター会. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /**
+       * モバイルメニュー制御
+       */
+      const menuBtn = document.getElementById('menu-btn');
+      const closeMenu = document.getElementById('close-menu');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      const toggleMenu = () => mobileMenu.classList.toggle('active');
+      
+      if(menuBtn) menuBtn.onclick = toggleMenu;
+      if(closeMenu) closeMenu.onclick = toggleMenu;
+      mobileLinks.forEach(link => {
+        link.onclick = toggleMenu;
+      });
+
+      /**
+       * note RSS取得（画像取得強化版）
+       */
+      const RSS_URL = 'https://note.com/f_fairy/rss';
+      const PROXY_URL = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
+      const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=400';
+
+      async function fetchNoteNews() {
+          const container = document.getElementById('news-container');
+          if (!container) return;
+
+          try {
+              const res = await fetch(PROXY_URL);
+              const data = await res.json();
+              const parser = new DOMParser();
+              const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+              const items = xmlDoc.querySelectorAll("item");
+
+              let html = '<div class="divide-y divide-gray-100">';
+              
+              for (let i = 0; i < Math.min(items.length, 3); i++) {
+                  const item = items[i];
+                  const title = item.querySelector("title").textContent;
+                  const link = item.querySelector("link").textContent;
+                  const pubDate = item.querySelector("pubDate").textContent;
+                  const date = new Date(pubDate).toLocaleDateString('ja-JP').replace(/\//g, '.');
+                  
+                  let thumb = "";
+                  const mediaThumb = item.getElementsByTagName("media:thumbnail")[0];
+                  if (mediaThumb) {
+                      thumb = mediaThumb.textContent;
+                  } else {
+                      const content = item.querySelector("description")?.textContent || "";
+                      const imgMatch = content.match(/<img[^>]+src="([^">?]+)"/);
+                      thumb = imgMatch ? imgMatch[1] : FALLBACK_IMAGE;
+                  }
+
+                  html += `
+                      <a href="${link}" target="_blank" rel="noopener" class="group p-6 md:p-8 flex gap-6 hover:bg-[#fcfdfc] transition-all">
+                          <div class="w-16 h-16 md:w-24 md:h-24 flex-shrink-0 overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
+                              <img src="${thumb}" 
+                                   alt="" 
+                                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                   onerror="this.src='${FALLBACK_IMAGE}'">
+                          </div>
+                          <div class="flex-1 min-w-0">
+                              <div class="flex items-center gap-3 mb-2">
+                                  <span class="text-xs font-bold text-gray-400">${date}</span>
+                                  <span class="text-[10px] px-2 py-0.5 border border-[#2d5a27]/20 text-[#2d5a27] rounded font-bold">note</span>
+                              </div>
+                              <h5 class="text-base font-bold text-gray-800 group-hover:text-[#2d5a27] transition-colors line-clamp-2">${title}</h5>
+                          </div>
+                      </a>`;
+              }
+              container.innerHTML = html + '</div>';
+          } catch (e) {
+              console.error("RSS取得エラー:", e);
+              container.innerHTML = `<p class="p-8 text-center text-gray-400 text-sm">記事を読み込めませんでした。</p>`;
+          }
+      }
+
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.onsubmit = (e) => {
+          e.preventDefault();
+          alert('お問い合わせありがとうございます。デモ用の設定です。');
+          e.target.reset();
+        };
+      }
+
+      document.addEventListener('DOMContentLoaded', fetchNoteNews);
+    </script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
