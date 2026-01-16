@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>○○インストラクター会 | 自然と知恵をつなぐ</title>
@@ -9,152 +9,165 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --forest-deep: #2d5a27;
-        --sun-gold: #f1c40f;
-        --bg-modern: #f9f9f9;
-        --text-main: #2c3e50;
-      }
-      
-      body {
-        font-family: 'Noto Sans JP', sans-serif;
-        background-color: var(--bg-modern);
-        color: var(--text-main);
-        font-size: 16px;
-        line-height: 1.8;
-        scroll-behavior: smooth;
-        overflow-x: hidden;
-      }
+        :root {
+            --forest-deep: #2d5a27;
+            --sun-gold: #f1c40f;
+            --bg-modern: #f9f9f9;
+            --text-main: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-modern);
+            color: var(--text-main);
+            font-size: 16px;
+            line-height: 1.8;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
 
-      h1, h2, h3, h4 {
-        font-family: 'Shippori Mincho', serif;
-        letter-spacing: 0.05em;
-      }
+        h1, h2, h3, h4 {
+            font-family: 'Shippori Mincho', serif;
+            letter-spacing: 0.05em;
+        }
 
-      .single-column {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 0 24px;
-        width: 100%;
-        box-sizing: border-box;
-      }
+        .single-column {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-      header .single-column {
-        max-width: 1000px;
-      }
+        header .single-column {
+            max-width: 1000px;
+        }
 
-      .hero-section {
-        position: relative;
-        height: 50vh;
-        min-height: 400px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+        .hero-section {
+            position: relative;
+            height: 50vh;
+            min-height: 400px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-      .slide-container {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-      }
+        .slide-container {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
 
-      .slide-item {
-        position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-position: center;
-        opacity: 0;
-        transition: opacity 1000ms ease-in-out;
-      }
+        .slide-item {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1000ms ease-in-out;
+        }
 
-      .slide-item.active {
-        opacity: 1;
-      }
+        .slide-item.active {
+            opacity: 1;
+        }
 
-      .slide-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(rgba(45, 90, 39, 0.4), rgba(45, 90, 39, 0.4));
-        z-index: 5;
-      }
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(45, 90, 39, 0.4), rgba(45, 90, 39, 0.4));
+            z-index: 5;
+        }
 
-      .hero-content {
-        position: relative;
-        z-index: 10;
-        text-align: center;
-        color: white;
-      }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+        }
 
-      .section-space {
-        padding: 32px 0;
-      }
-      @media (min-width: 768px) {
         .section-space {
-          padding: 48px 0;
+            padding: 32px 0;
         }
-      }
+        @media (min-width: 768px) {
+            .section-space {
+                padding: 48px 0;
+            }
+        }
 
-      .modern-card {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-        border: 1px solid rgba(0, 0, 0, 0.02);
-        overflow: hidden;
-      }
+        .modern-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+        }
 
-      .calendar-container {
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .calendar-wrapper {
-        position: relative;
-        padding-bottom: 120%;
-        height: 0;
-        min-width: 320px;
-      }
-      @media (min-width: 768px) {
+        .calendar-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
         .calendar-wrapper {
-          padding-bottom: 70%;
+            position: relative;
+            padding-bottom: 120%;
+            height: 0;
+            min-width: 320px;
         }
-      }
-      .calendar-wrapper iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100% !important;
-        height: 100% !important;
-      }
+        @media (min-width: 768px) {
+            .calendar-wrapper {
+                padding-bottom: 70%;
+            }
+        }
+        .calendar-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
 
-      .dropdown:hover .dropdown-menu {
-        display: block;
-      }
-      .dropdown-menu {
-        display: none;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu {
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
 
-      #mobile-menu {
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        opacity: 0;
-        visibility: hidden;
-      }
-      #mobile-menu.active {
-        opacity: 1;
-        visibility: visible;
-      }
+        #mobile-menu {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        #mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
-      .line-clamp-1 {
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
+        .line-clamp-1 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .zebra-list div:nth-child(even) {
+            background-color: #fafbfb;
+        }
     </style>
-  <link rel="stylesheet" href="/index.css">
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
 </head>
-  <body id="top">
+<body id="top">
     <!-- ヘッダー -->
     <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 py-2 md:py-3 shadow-sm">
       <div class="single-column flex flex-wrap justify-between items-center gap-x-4 gap-y-2">
@@ -209,273 +222,416 @@
       <a href="#contact" class="mobile-link">お問い合わせ</a>
     </div>
 
+    <!-- ヒーロー（スライドショー） -->
     <section class="hero-section">
-      <div id="slide-container" class="slide-container"></div>
-      <div class="slide-overlay"></div>
-      <div class="hero-content single-column text-white">
-        <p class="text-xs md:text-sm font-bold mb-3 tracking-[0.4em] text-[#f1c40f]">FOR THE NEXT GENERATION</p>
-        <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-relaxed">
-          光溢れる明るい森から、<br>新しい知恵を。
-        </h2>
-      </div>
+        <div id="slide-container" class="slide-container"></div>
+        <div class="slide-overlay"></div>
+        <div class="hero-content single-column">
+            <p class="text-xs md:text-sm font-bold mb-3 tracking-[0.4em] text-[#f1c40f]">FOR THE NEXT GENERATION</p>
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-relaxed">
+                光溢れる明るい森から、<br>新しい知恵を。
+            </h2>
+        </div>
     </section>
 
     <main class="single-column">
-      <!-- 新着情報 -->
-      <section id="news" class="section-space">
-        <div class="text-center mb-4">
-          <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">新着情報</h3>
-          <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
-        </div>
-        <div id="news-container" class="modern-card">
-          <div class="p-4 space-y-2 animate-pulse">
-            <div class="h-3 bg-gray-100 rounded w-1/4"></div>
-            <div class="h-4 bg-gray-100 rounded w-full"></div>
-          </div>
-        </div>
-      </section>
+        <!-- 新着情報 (最新3件) -->
+        <section id="news" class="section-space">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">新着情報</h3>
+                <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
+            </div>
+            <div id="news-container" class="modern-card">
+                <div class="p-6 space-y-4 animate-pulse">
+                    <div class="h-3 bg-gray-100 rounded w-1/4"></div>
+                    <div class="h-4 bg-gray-100 rounded w-full"></div>
+                </div>
+            </div>
+        </section>
 
-      <!-- 活動報告 (すべて動的リストに差し替え) -->
-      <section id="activities" class="section-space">
-        <div class="text-center mb-8">
-          <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">活動報告</h3>
-          <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
-          <p class="text-[10px] text-gray-400 mt-2 italic">カテゴリごとの活動レポートをお届けします</p>
-        </div>
-        
-        <div class="space-y-10">
-          <!-- 講座 -->
-          <div>
-            <div class="flex items-center gap-2 mb-4">
-              <div class="w-8 h-8 rounded-full bg-[#2d5a27] flex items-center justify-center shadow-sm">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-              </div>
-              <h4 class="font-bold text-[#2d5a27] text-lg tracking-wider">講座</h4>
-              <div class="flex-1 h-[1px] bg-gray-100"></div>
+        <!-- スケジュール (活動報告の前に配置) -->
+        <section id="calendar" class="section-space">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">スケジュール</h3>
+                <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
             </div>
-            <div id="news-kouza" class="modern-card min-h-[60px]">
-              <p class="p-6 text-center text-gray-300 text-xs italic">記事を読み込み中...</p>
+            <div class="modern-card calendar-container">
+                <div class="calendar-wrapper">
+                    <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTokyo&showPrint=0&src=NTBjMzdmMmVmOGZkNzkzZjhmNGYyZTM5ZjZkODhlODFlZDgyYTAwYjg5YTU2MTJjMjdhMDM3N2U0YmNhM2FmMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=amEuamFwYW5lc2UjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23a79b8e&color=%230b8043" style="border: 0" frameborder="0" scrolling="no"></iframe>
+                </div>
             </div>
-          </div>
+        </section>
 
-          <!-- 公園 -->
-          <div>
-            <div class="flex items-center gap-2 mb-4">
-              <div class="w-8 h-8 rounded-full bg-[#2d5a27] flex items-center justify-center shadow-sm">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
-              </div>
-              <h4 class="font-bold text-[#2d5a27] text-lg tracking-wider">公園</h4>
-              <div class="flex-1 h-[1px] bg-gray-100"></div>
+        <!-- 活動報告セクション (index7.txtの振り分け構造) -->
+        <section id="activities" class="section-space">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">活動報告</h3>
+                <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
+                <!-- <p class="text-[10px] text-gray-400 mt-2 italic tracking-wider">カテゴリ別の最新レポート</p>  -->
             </div>
-            <div id="news-kouen" class="modern-card min-h-[60px]">
-              <p class="p-6 text-center text-gray-300 text-xs italic">記事を読み込み中...</p>
-            </div>
-          </div>
+            
+            <div class="space-y-10">
+                <!-- 講座 -->
+                <div id="section-kouza">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-[#2d5a27] flex items-center justify-center shadow-sm">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                        <h4 class="font-bold text-[#2d5a27] text-lg tracking-wider">講座</h4>
+                        <div class="flex-1 h-[1px] bg-gray-100"></div>
+                    </div>
+                    <div id="news-kouza" class="modern-card min-h-[60px]">
+                        <p class="p-6 text-center text-gray-300 text-xs italic">読み込み中...</p>
+                    </div>
+                </div>
 
-          <!-- イベント -->
-          <div>
-            <div class="flex items-center gap-2 mb-4">
-              <div class="w-8 h-8 rounded-full bg-[#2d5a27] flex items-center justify-center shadow-sm">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-              </div>
-              <h4 class="font-bold text-[#2d5a27] text-lg tracking-wider">イベント</h4>
-              <div class="flex-1 h-[1px] bg-gray-100"></div>
-            </div>
-            <div id="news-event" class="modern-card min-h-[60px]">
-              <p class="p-6 text-center text-gray-300 text-xs italic">記事を読み込み中...</p>
-            </div>
-          </div>
-        </div>
-      </section>
+                <!-- 公園 -->
+                <div id="section-kouen">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-[#2d5a27] flex items-center justify-center shadow-sm">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                        </div>
+                        <h4 class="font-bold text-[#2d5a27] text-lg tracking-wider">公園</h4>
+                        <div class="flex-1 h-[1px] bg-gray-100"></div>
+                    </div>
+                    <div id="news-kouen" class="modern-card min-h-[60px]">
+                        <p class="p-6 text-center text-gray-300 text-xs italic">読み込み中...</p>
+                    </div>
+                </div>
 
-      <!-- スケジュール -->
-      <section id="calendar" class="section-space">
-        <div class="text-center mb-4">
-          <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">スケジュール</h3>
-          <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
-        </div>
-        <div class="modern-card calendar-container">
-          <div class="calendar-wrapper">
-            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTokyo&showPrint=0&src=NTBjMzdmMmVmOGZkNzkzZjhmNGYyZTM5ZjZkODhlODFlZDgyYTAwYjg5YTU2MTJjMjdhMDM3N2U0YmNhM2FmMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=amEuamFwYW5lc2UjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23a79b8e&color=%230b8043" style="border: 0" frameborder="0" scrolling="no"></iframe>
-          </div>
-        </div>
-      </section>
+                <!-- イベント -->
+                <div id="section-event">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-[#2d5a27] flex items-center justify-center shadow-sm">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h4 class="font-bold text-[#2d5a27] text-lg tracking-wider">イベント</h4>
+                        <div class="flex-1 h-[1px] bg-gray-100"></div>
+                    </div>
+                    <div id="news-event" class="modern-card min-h-[60px]">
+                        <p class="p-6 text-center text-gray-300 text-xs italic">読み込み中...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <!-- お問い合わせ -->
-      <section id="contact" class="section-space">
-        <div class="text-center mb-6">
-          <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">お問い合わせ</h3>
-          <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
-        </div>
-        <form id="contact-form" class="modern-card p-8 space-y-6 text-sm">
-          <div class="grid md:grid-cols-2 gap-6">
-            <input type="text" class="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl outline-none focus:bg-white" placeholder="お名前" required>
-            <input type="email" class="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl outline-none focus:bg-white" placeholder="メールアドレス" required>
-          </div>
-          <textarea class="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl text-sm h-32 outline-none focus:bg-white" placeholder="内容をご入力ください" required></textarea>
-          <div class="text-center">
-            <button type="submit" class="bg-[#2d5a27] text-white px-12 py-3 rounded-full font-bold text-xs shadow-lg">送信する</button>
-          </div>
-        </form>
-      </section>
+        <!-- ABOUT -->
+        <section id="about" class="section-space">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">ABOUT</h3>
+                <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="modern-card p-8 md:p-10">
+                    <h4 class="text-xl font-bold mb-4 text-[#2d5a27] flex items-center gap-3">
+                        <span class="w-1 h-6 bg-[#2d5a27] rounded-full"></span>
+                        私たちのミッション
+                    </h4>
+                    <p class="text-gray-600 leading-loose mb-6 text-sm md:text-base">
+                        私たちは地域の「森林インストラクター」として、森林の魅力を次世代へつなぐ活動をしています。豊かな自然の恵みを知り、楽しみ、そして守るための架け橋となります。
+                    </p>
+                    <div class="bg-[#fcfdfc] p-5 rounded-xl border border-gray-50">
+                        <ul class="space-y-2 text-gray-500 text-sm md:text-base font-medium">
+                            <li class="flex items-center gap-4"><svg class="w-4 h-4 text-[#f1c40f]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>学校教育の環境学習支援</li>
+                            <li class="flex items-center gap-4"><svg class="w-4 h-4 text-[#f1c40f]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>季節の森林散策会の企画・運営</li>
+                            <li class="flex items-center gap-4"><svg class="w-4 h-4 text-[#f1c40f]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>里山・人工林の保全・整備活動</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="modern-card">
+                    <div class="bg-gray-50/50 px-8 py-3 border-b border-gray-100">
+                        <h4 class="text-xs font-bold text-[#2d5a27] text-center tracking-widest uppercase">Officers</h4>
+                    </div>
+                    <div class="zebra-list">
+                        <div class="px-10 py-4 flex justify-between items-center text-sm">
+                            <span class="text-gray-400 font-medium">会長</span>
+                            <span class="font-bold text-gray-700">森林 太郎</span>
+                        </div>
+                        <div class="px-10 py-4 flex justify-between items-center text-sm">
+                            <span class="text-gray-400 font-medium">副会長</span>
+                            <span class="font-bold text-gray-700">木村 花子</span>
+                        </div>
+                        <div class="px-10 py-4 flex justify-between items-center text-sm">
+                            <span class="text-gray-400 font-medium">事務局</span>
+                            <span class="font-bold text-gray-700">葉山 茂</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- お問い合わせ -->
+        <section id="contact" class="section-space">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">お問い合わせ</h3>
+                <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
+            </div>
+
+            <form id="contact-form" class="modern-card p-8 md:p-10 space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Name</label>
+                        <input type="text" class="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl text-sm outline-none focus:border-[#2d5a27]/30 focus:bg-white transition" placeholder="お名前" required>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Email</label>
+                        <input type="email" class="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl text-sm outline-none focus:border-[#2d5a27]/30 focus:bg-white transition" placeholder="メールアドレス" required>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Message</label>
+                    <textarea class="w-full bg-gray-50 border border-gray-100 p-4 rounded-xl text-sm outline-none focus:border-[#2d5a27]/30 focus:bg-white transition h-32" placeholder="内容をご入力ください" required></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="w-full md:w-auto bg-[#2d5a27] text-white px-16 py-3 rounded-full font-bold text-xs tracking-[0.3em] hover:bg-[#3d7a35] transition-all shadow-lg hover:shadow-xl">
+                        送信する
+                    </button>
+                </div>
+            </form>
+        </section>
     </main>
 
-    <footer class="bg-white border-t border-gray-100 py-6 mt-6">
-      <div class="single-column text-center">
-        <p class="text-gray-300 text-[9px] uppercase tracking-widest font-bold">&copy; 2024 ○○インストラクター会. All rights reserved.</p>
-      </div>
+    <!-- フッター -->
+    <footer class="bg-white border-t border-gray-100 pt-8 pb-6 mt-6">
+        <div class="single-column">
+            <div class="grid md:grid-cols-2 gap-8 mb-8 text-center md:text-left items-start">
+                <div>
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
+                        <img src="./images/logo_mie.png" alt="Logo" class="h-6 w-auto object-contain" onerror="this.src='https://picsum.photos/100/50?forest'">
+                        <h4 class="text-sm font-bold tracking-tight text-[#2d5a27]">○○インストラクター会</h4>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed max-w-sm">森林の魅力を次世代へ。持続可能な未来を育む活動を行っています。</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <h5 class="text-[10px] font-bold text-gray-300 uppercase tracking-[0.3em] mb-2">Official Link</h5>
+                        <a href="https://www.forest-instructor.or.jp/" target="_blank" rel="noopener" class="text-xs font-bold text-[#2d5a27] hover:underline transition-all">日本森林インストラクター協会</a>
+                    </div>
+                    <div class="flex justify-center md:justify-start gap-6 items-center">
+                        <a href="#" target="_blank" rel="noopener" class="text-gray-400 hover:text-[#2d5a27] transition-colors" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.325-.597 1.325-1.326V1.326C24 .597 23.403 0 22.675 0z"/></svg>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" class="text-gray-400 hover:text-[#2d5a27] transition-colors" aria-label="X (Twitter)">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-50 pt-6 text-center">
+                <p class="text-gray-300 text-[9px] tracking-[0.2em] font-medium uppercase">&copy; 2026 ○○インストラクター会. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
     <script>
-      const slideImages = [
-        './images/slide/slide0.jpg', './images/slide/slide1.jpg', './images/slide/slide2.jpg',
-        './images/slide/slide3.jpg', './images/slide/slide4.jpg', './images/slide/slide5.jpg',
-        './images/slide/slide6.jpg', './images/slide/slide7.jpg', './images/slide/slide8.png'
-      ];
+        /**
+         * ヒーローエリア スライドショー制御
+         */
+        const slideImages = [
+            './images/slide/slide0.jpg',
+            './images/slide/slide1.jpg',
+            './images/slide/slide2.jpg',
+            './images/slide/slide3.jpg',
+            './images/slide/slide4.jpg',
+            './images/slide/slide5.jpg',
+            './images/slide/slide6.jpg',
+            './images/slide/slide7.jpg',
+            './images/slide/slide8.png'
+        ];
 
-      function initSlideshow() {
-        const container = document.getElementById('slide-container');
-        if (!container) return;
-        slideImages.forEach((src, index) => {
-          const div = document.createElement('div');
-          div.className = `slide-item ${index === 0 ? 'active' : ''}`;
-          div.style.backgroundImage = `url('${src}')`;
-          container.appendChild(div);
-        });
-        let currentIndex = 0;
-        const slides = container.getElementsByClassName('slide-item');
-        setInterval(() => {
-          if (slides.length === 0) return;
-          slides[currentIndex].classList.remove('active');
-          currentIndex = (currentIndex + 1) % slides.length;
-          slides[currentIndex].classList.add('active');
-        }, 5000);
-      }
+        function initSlideshow() {
+            const container = document.getElementById('slide-container');
+            if (!container || slideImages.length === 0) return;
 
-      const toggleMenu = () => document.getElementById('mobile-menu').classList.toggle('active');
-      document.getElementById('menu-btn').onclick = toggleMenu;
-      document.getElementById('close-menu').onclick = toggleMenu;
-      document.querySelectorAll('.mobile-link').forEach(link => link.onclick = toggleMenu);
-
-      const RSS_URL = 'https://note.com/f_fairy/rss';
-      const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=400';
-      let allArticles = [];
-
-      async function fetchWithRetry(url, options = {}, retries = 3, interval = 1500) {
-        for (let i = 0; i < retries; i++) {
-          const controller = new AbortController();
-          const id = setTimeout(() => controller.abort(), 10000);
-          try {
-            const response = await fetch(url, { ...options, signal: controller.signal });
-            clearTimeout(id);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return await response.json();
-          } catch (err) {
-            clearTimeout(id);
-            if (i === retries - 1) throw err;
-            await new Promise(resolve => setTimeout(resolve, interval));
-          }
-        }
-      }
-
-      async function fetchNoteNews() {
-        const cacheBuster = `?t=${Date.now()}`;
-        const targetUrl = RSS_URL + cacheBuster;
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
-
-        try {
-          const data = await fetchWithRetry(proxyUrl);
-          const parser = new DOMParser();
-          const xmlDoc = parser.parseFromString(data.contents, "text/xml");
-          const items = xmlDoc.querySelectorAll("item");
-
-          allArticles = Array.from(items).map(item => {
-            const title = item.querySelector("title")?.textContent || "";
-            const link = item.querySelector("link")?.textContent || "";
-            const pubDate = item.querySelector("pubDate")?.textContent || "";
-            const date = new Date(pubDate).toLocaleDateString('ja-JP').replace(/\//g, '.');
-            
-            // タグ抽出ロジックの強化 (dc:subjectも含め確実に取得)
-            const cats = item.getElementsByTagName("category");
-            const subs = item.getElementsByTagName("dc:subject");
-            const allCatElements = [...Array.from(cats), ...Array.from(subs)];
-            const categories = [];
-            allCatElements.forEach(el => {
-                const val = el.textContent || el.innerHTML || "";
-                const trimmed = val.trim();
-                if (trimmed && !categories.includes(trimmed)) {
-                    categories.push(trimmed);
-                }
+            slideImages.forEach((src, index) => {
+                const div = document.createElement('div');
+                div.className = `slide-item ${index === 0 ? 'active' : ''}`;
+                div.style.backgroundImage = `url('${src}')`;
+                container.appendChild(div);
             });
-            console.log("解析された全タグ一覧:", categories);
+
+            let currentIndex = 0;
+            const slides = container.getElementsByClassName('slide-item');
             
-            let thumb = "";
-            const mediaThumb = item.getElementsByTagName("media:thumbnail")[0];
-            if (mediaThumb) {
-              thumb = mediaThumb.textContent;
-            } else {
-              const content = item.querySelector("description")?.textContent || "";
-              const imgMatch = content.match(/<img[^>]+src="([^">?]+)"/);
-              thumb = imgMatch ? imgMatch[1] : FALLBACK_IMAGE;
-            }
-            return { title, link, date, thumb, categories };
-          });
-
-          // 1. 最新3件 (メイン新着情報)
-          renderArticles('news-container', allArticles.slice(0, 3));
-
-          // 2. セクション別振り分け (someメソッドによる判定)
-          const filterByTag = (tag) => allArticles.filter(a => 
-            a.categories.some(cat => cat.includes(tag))
-          ).slice(0, 3);
-
-          renderArticles('news-kouza', filterByTag("講座"));
-          renderArticles('news-kouen', filterByTag("公園"));
-          renderArticles('news-event', filterByTag("イベント"));
-
-        } catch (e) {
-          console.error("RSS取得エラー:", e);
-          const err = `<p class="p-4 text-center text-gray-400 text-xs">データの読み込みに失敗しました。</p>`;
-          ['news-container', 'news-kouza', 'news-kouen', 'news-event'].forEach(id => {
-            const el = document.getElementById(id);
-            if(el) el.innerHTML = err;
-          });
-        }
-      }
-
-      function renderArticles(containerId, articles) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-
-        if (articles.length === 0) {
-          container.innerHTML = `<p class="p-6 text-center text-gray-300 text-[10px] italic">現在、該当する活動レポートはありません。</p>`;
-          return;
+            setInterval(() => {
+                if (slides.length === 0) return;
+                slides[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % slides.length;
+                slides[currentIndex].classList.add('active');
+            }, 5000);
         }
 
-        let html = '<div class="divide-y divide-gray-100">';
-        articles.forEach(article => {
-          html += `
-            <a href="${article.link}" target="_blank" rel="noopener" class="group px-4 py-3 flex gap-4 items-center hover:bg-gray-50/80 transition-all">
-                <div class="w-12 h-12 flex-shrink-0 overflow-hidden rounded-lg bg-gray-50 border border-gray-100">
-                    <img src="${article.thumb}" alt="" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='${FALLBACK_IMAGE}'">
-                </div>
-                <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-2 mb-0.5">
-                        <span class="text-[8px] font-bold text-gray-400 font-mono tracking-tighter">${article.date}</span>
-                        ${article.categories.length > 0 ? `<span class="text-[7px] text-[#2d5a27]/60 font-bold ml-2">#${article.categories[0]}</span>` : ''}
-                    </div>
-                    <h5 class="text-[13px] font-bold text-gray-700 group-hover:text-[#2d5a27] transition-colors line-clamp-1 leading-tight">${article.title}</h5>
-                </div>
-            </a>`;
+        /**
+         * モバイルメニュー制御
+         */
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        const toggleMenu = () => mobileMenu.classList.toggle('active');
+        
+        if(menuBtn) menuBtn.onclick = toggleMenu;
+        if(closeMenu) closeMenu.onclick = toggleMenu;
+        mobileLinks.forEach(link => {
+            link.onclick = toggleMenu;
         });
-        container.innerHTML = html + '</div>';
-      }
 
-      document.addEventListener('DOMContentLoaded', () => {
-        initSlideshow();
-        fetchNoteNews();
-      });
+        /**
+         * note RSS取得・表示ロジック
+         */
+        const RSS_URL = 'https://note.com/f_fairy/rss';
+        const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=400';
+        
+        let allArticles = [];
+
+        async function fetchWithRetry(url, options = {}, retries = 3, interval = 1500) {
+            for (let i = 0; i < retries; i++) {
+                const controller = new AbortController();
+                const id = setTimeout(() => controller.abort(), 10000);
+
+                try {
+                    const response = await fetch(url, { ...options, signal: controller.signal });
+                    clearTimeout(id);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (err) {
+                    clearTimeout(id);
+                    if (i === retries - 1) throw err;
+                    await new Promise(resolve => setTimeout(resolve, interval));
+                }
+            }
+        }
+
+        async function fetchNoteNews() {
+            const cacheBuster = `?t=${Date.now()}`;
+            const targetUrl = RSS_URL + cacheBuster;
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+
+            try {
+                const data = await fetchWithRetry(proxyUrl);
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+                const items = xmlDoc.querySelectorAll("item");
+
+                allArticles = Array.from(items).map(item => {
+                    const title = item.querySelector("title")?.textContent || "";
+                    const link = item.querySelector("link")?.textContent || "";
+                    const pubDate = item.querySelector("pubDate")?.textContent || "";
+                    const date = new Date(pubDate).toLocaleDateString('ja-JP').replace(/\//g, '.');
+                    
+                    // --- タグ取得ロジック ---
+                    const categories = [];
+                    const children = item.childNodes;
+                    for (let j = 0; j < children.length; j++) {
+                        const node = children[j];
+                        if (node.nodeType === 1) { // ELEMENT_NODE
+                            const name = node.nodeName.toLowerCase();
+                            if (name.includes('category') || name.includes('subject')) {
+                                const val = node.textContent || node.innerText || "";
+                                if (val) categories.push(val.trim());
+                            }
+                        }
+                    }
+
+                    // --- 救済ロジック（タイトルキーワード判定） ---
+                    if (categories.length === 0) {
+                        if (title.includes("講座")) categories.push("講座");
+                        if (title.includes("公園")) categories.push("公園");
+                        if (title.includes("イベント") || title.includes("研修")) categories.push("イベント");
+                    }
+                    console.log("【最終判定】タグ:", categories);
+
+                    let thumb = "";
+                    const mediaThumb = item.getElementsByTagName("media:thumbnail")[0];
+                    if (mediaThumb) {
+                        thumb = mediaThumb.textContent;
+                    } else {
+                        const content = item.querySelector("description")?.textContent || "";
+                        const imgMatch = content.match(/<img[^>]+src="([^">?]+)"/);
+                        thumb = imgMatch ? imgMatch[1] : FALLBACK_IMAGE;
+                    }
+
+                    return { title, link, date, thumb, categories };
+                });
+
+                // 表示処理
+                renderArticles('news-container', allArticles.slice(0, 3));
+
+                const filterByKeyword = (keyword) => allArticles.filter(a => 
+                    a.categories.some(cat => cat.includes(keyword))
+                ).slice(0, 3);
+
+                renderArticles('news-kouza', filterByKeyword("講座"));
+                renderArticles('news-kouen', filterByKeyword("公園"));
+                renderArticles('news-event', filterByKeyword("イベント"));
+
+            } catch (e) {
+                console.error("RSS取得エラー:", e);
+                const errorHtml = `<p class="p-8 text-center text-gray-400 text-sm">記事を読み込めませんでした。</p>`;
+                ['news-container', 'news-kouza', 'news-kouen', 'news-event'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) el.innerHTML = errorHtml;
+                });
+            }
+        }
+
+        /**
+         * 記事レンダリング（デザイン再徹底：48pxサムネイル、行間コンパクト）
+         */
+        function renderArticles(containerId, articles) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            if (articles.length === 0) {
+                container.innerHTML = `<p class="p-6 text-center text-gray-300 text-xs italic">現在、該当するレポートはありません。</p>`;
+                return;
+            }
+
+            let html = '<div class="divide-y divide-gray-100">';
+            articles.forEach(article => {
+                html += `
+                <a href="${article.link}" target="_blank" rel="noopener" class="group px-4 py-2 flex gap-4 items-center hover:bg-gray-50/80 transition-all">
+                    <!-- サムネイル 48x48 (w-12 h-12) -->
+                    <div class="w-12 h-12 flex-shrink-0 overflow-hidden rounded-lg bg-gray-50 border border-gray-100 shadow-sm">
+                        <img src="${article.thumb}" 
+                             alt="" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                             onerror="this.src='${FALLBACK_IMAGE}'">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-0.5">
+                            <span class="text-[9px] font-bold text-gray-400 font-mono tracking-tighter">${article.date}</span>
+                            ${article.categories.length > 0 ? `<span class="text-[8px] text-[#2d5a27]/70 font-bold bg-[#2d5a27]/5 px-2 py-0.5 rounded">#${article.categories[0]}</span>` : ''}
+                        </div>
+                        <h5 class="text-[13px] font-bold text-gray-700 group-hover:text-[#2d5a27] transition-colors line-clamp-1 leading-tight">${article.title}</h5>
+                    </div>
+                    <div class="text-gray-200 group-hover:text-[#2d5a27] transition-colors pr-1 hidden sm:block">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </div>
+                </a>`;
+            });
+            container.innerHTML = html + '</div>';
+        }
+
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.onsubmit = (e) => {
+                e.preventDefault();
+                alert('お問い合わせありがとうございます。担当者より折り返しご連絡いたします。');
+                e.target.reset();
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initSlideshow();
+            fetchNoteNews();
+        });
     </script>
-  <script type="module" src="/index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
