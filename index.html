@@ -39,6 +39,11 @@
         box-sizing: border-box;
       }
 
+      /* ヘッダー調整 */
+      header .single-column {
+        max-width: 1000px; /* ヘッダーのみ少し余裕を持たせる */
+      }
+
       /* ヒーローセクション（スライドショー対応） */
       .hero-section {
         position: relative;
@@ -161,41 +166,44 @@
           padding: 0 20px;
       }
     </style>
-  <link rel="stylesheet" href="/index.css">
+  <!-- <link rel="stylesheet" href="/index.css"> -->
 </head>
   <body id="top">
     <!-- ヘッダー -->
-    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-100 py-3">
-      <div class="single-column flex justify-between items-center gap-2 md:gap-4 flex-nowrap">
-        <a href="#top" class="flex items-center gap-1.5 md:gap-2 group flex-shrink-0">
-          <img src="./images/logo_mie.png" alt="Logo" class="h-8 md:h-10 w-auto object-contain flex-shrink-0">
-          <span class="font-bold text-sm md:text-base tracking-tight text-[#2d5a27] whitespace-nowrap">○○インストラクター会</span>
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 py-3 shadow-sm">
+      <div class="single-column flex justify-between items-center gap-4">
+        <a href="#top" class="flex items-center gap-2 group flex-shrink-0">
+          <img src="./images/logo_mie.png" alt="Logo" class="h-9 md:h-11 w-auto object-contain flex-shrink-0">
+          <div class="flex flex-col leading-tight">
+            <span class="font-bold text-sm md:text-lg tracking-tight text-[#2d5a27] whitespace-nowrap">○○インストラクター会</span>
+            <!-- <span class="text-[9px] md:text-[10px] text-gray-400 font-medium tracking-wider hidden md:block">Japan Forest Instructor Association</span> -->
+          </div>
         </a>
         
         <!-- デスクトップナビ -->
-        <nav class="hidden md:block flex-shrink-0">
-          <ul class="flex gap-4 lg:gap-6 text-[13px] font-bold text-gray-500 items-center whitespace-nowrap">
-            <li><a href="#top" class="hover:text-[#2d5a27] transition">HOME</a></li>
-            <li><a href="#news" class="hover:text-[#2d5a27] transition">新着情報</a></li>
-            <li><a href="#calendar" class="hover:text-[#2d5a27] transition">スケジュール</a></li>
+        <nav class="hidden lg:block flex-shrink-0">
+          <ul class="flex gap-4 xl:gap-8 text-[13px] font-bold text-gray-600 items-center whitespace-nowrap">
+            <li><a href="#top" class="hover:text-[#2d5a27] transition-colors py-2 border-b-2 border-transparent hover:border-[#2d5a27]">HOME</a></li>
+            <li><a href="#news" class="hover:text-[#2d5a27] transition-colors py-2 border-b-2 border-transparent hover:border-[#2d5a27]">新着情報</a></li>
+            <li><a href="#calendar" class="hover:text-[#2d5a27] transition-colors py-2 border-b-2 border-transparent hover:border-[#2d5a27]">スケジュール</a></li>
             <li class="relative dropdown">
-              <button class="flex items-center gap-1 hover:text-[#2d5a27] transition focus:outline-none whitespace-nowrap">
+              <button class="flex items-center gap-1 hover:text-[#2d5a27] transition-colors py-2 border-b-2 border-transparent hover:border-[#2d5a27] focus:outline-none">
                 活動報告
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
               </button>
-              <ul class="dropdown-menu absolute left-0 mt-2 w-32 bg-white border border-gray-100 rounded-lg overflow-hidden py-1 shadow-lg">
-                <li><a href="#activities" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#2d5a27] transition">一般</a></li>
-                <li><a href="#activities" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#2d5a27] transition">公園</a></li>
-                <li><a href="#activities" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#2d5a27] transition">講座</a></li>
+              <ul class="dropdown-menu absolute left-0 mt-0 w-36 bg-white border border-gray-100 rounded-b-lg shadow-xl py-2">
+                <li><a href="#activities" class="block px-5 py-2 hover:bg-gray-50 hover:text-[#2d5a27] transition-colors">一般</a></li>
+                <li><a href="#activities" class="block px-5 py-2 hover:bg-gray-50 hover:text-[#2d5a27] transition-colors">公園</a></li>
+                <li><a href="#activities" class="block px-5 py-2 hover:bg-gray-50 hover:text-[#2d5a27] transition-colors">講座</a></li>
               </ul>
             </li>
-            <li><a href="#about" class="hover:text-[#2d5a27] transition">ABOUT</a></li>
-            <li><a href="#contact" class="hover:text-[#2d5a27] transition">お問い合わせ</a></li>
+            <li><a href="#about" class="hover:text-[#2d5a27] transition-colors py-2 border-b-2 border-transparent hover:border-[#2d5a27]">ABOUT</a></li>
+            <li><a href="#contact" class="bg-[#2d5a27] text-white px-5 py-2 rounded-full hover:bg-[#3d7a35] transition-all shadow-md hover:shadow-lg">お問い合わせ</a></li>
           </ul>
         </nav>
 
-        <button id="menu-btn" class="md:hidden p-2 text-[#2d5a27] flex-shrink-0" aria-label="Menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        <button id="menu-btn" class="lg:hidden p-2 text-[#2d5a27] hover:bg-gray-50 rounded-lg transition-colors" aria-label="Menu">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
       </div>
     </header>
@@ -235,21 +243,22 @@
     <main class="single-column">
       <!-- 新着情報 -->
       <section id="news" class="section-space">
-        <div class="text-center mb-4">
+        <div class="text-center mb-6">
           <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">新着情報</h3>
           <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
         </div>
+        <!-- 密度を高めたニュースコンテナ -->
         <div id="news-container" class="modern-card">
-          <div class="p-8 space-y-4 animate-pulse">
+          <div class="p-6 space-y-4 animate-pulse">
             <div class="h-3 bg-gray-100 rounded w-1/4"></div>
-            <div class="h-5 bg-gray-100 rounded w-full"></div>
+            <div class="h-4 bg-gray-100 rounded w-full"></div>
           </div>
         </div>
       </section>
 
       <!-- スケジュール -->
       <section id="calendar" class="section-space">
-        <div class="text-center mb-4">
+        <div class="text-center mb-6">
           <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">スケジュール</h3>
           <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
         </div>
@@ -262,7 +271,7 @@
 
       <!-- 活動報告 -->
       <section id="activities" class="section-space">
-        <div class="text-center mb-4">
+        <div class="text-center mb-6">
           <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">活動報告</h3>
           <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
         </div>
@@ -293,7 +302,7 @@
 
       <!-- ABOUT -->
       <section id="about" class="section-space">
-        <div class="text-center mb-4">
+        <div class="text-center mb-6">
           <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">ABOUT</h3>
           <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
         </div>
@@ -340,7 +349,7 @@
 
       <!-- お問い合わせ -->
       <section id="contact" class="section-space">
-        <div class="text-center mb-4">
+        <div class="text-center mb-6">
           <h3 class="text-2xl font-bold text-[#2d5a27] tracking-widest">お問い合わせ</h3>
           <div class="w-8 h-1 bg-[#f1c40f] mx-auto mt-2 rounded-full"></div>
         </div>
@@ -527,7 +536,7 @@
             return { title, link, date, thumb };
           });
 
-          // 表示処理（現在は最新3件のみ）
+          // 表示処理（最新3件のみ描画）
           renderArticles(allArticles.slice(0, 3));
 
         } catch (e) {
@@ -537,7 +546,7 @@
       }
 
       /**
-       * 記事リストをDOMに描画
+       * 記事リストをDOMに描画（高密度版）
        */
       function renderArticles(articles) {
         const container = document.getElementById('news-container');
@@ -551,19 +560,22 @@
         let html = '<div class="divide-y divide-gray-100">';
         articles.forEach(article => {
           html += `
-            <a href="${article.link}" target="_blank" rel="noopener" class="group p-6 md:p-8 flex gap-6 hover:bg-[#fcfdfc] transition-all">
-                <div class="w-16 h-16 md:w-24 md:h-24 flex-shrink-0 overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
+            <a href="${article.link}" target="_blank" rel="noopener" class="group p-3 md:p-4 flex gap-4 items-center hover:bg-gray-50/80 transition-all">
+                <div class="w-12 h-12 flex-shrink-0 overflow-hidden rounded-lg bg-gray-50 border border-gray-100">
                     <img src="${article.thumb}" 
                          alt="" 
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                          onerror="this.src='${FALLBACK_IMAGE}'">
                 </div>
                 <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-3 mb-2">
-                        <span class="text-xs font-bold text-gray-400">${article.date}</span>
-                        <span class="text-[10px] px-2 py-0.5 border border-[#2d5a27]/20 text-[#2d5a27] rounded font-bold">note</span>
+                    <div class="flex items-center gap-2 mb-0.5">
+                        <span class="text-[10px] font-bold text-gray-400 font-mono">${article.date}</span>
+                        <span class="text-[9px] px-1.5 py-0 border border-[#2d5a27]/20 text-[#2d5a27] rounded font-bold bg-[#2d5a27]/5">note</span>
                     </div>
-                    <h5 class="text-base font-bold text-gray-800 group-hover:text-[#2d5a27] transition-colors line-clamp-2">${article.title}</h5>
+                    <h5 class="text-sm font-bold text-gray-700 group-hover:text-[#2d5a27] transition-colors line-clamp-1">${article.title}</h5>
+                </div>
+                <div class="text-gray-300 group-hover:text-[#2d5a27] transition-colors pr-1 hidden md:block">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </div>
             </a>`;
         });
@@ -584,6 +596,6 @@
         fetchNoteNews();
       });
     </script>
-  <script type="module" src="/index.tsx"></script>
+  <!-- <script type="module" src="/index.tsx"></script> -->
 </body>
 </html>
